@@ -212,6 +212,16 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
                 return;
             }
 
+            //Adicionado validação do campo Email
+            String email = jtEmail1.getText().trim();
+            if (!email.isEmpty()
+                    && !email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+
+                JOptionPane.showMessageDialog(null,
+                        "E-mail inválido!");
+                return;
+            }
+
             pac.setNome(jtNome.getText());
             pac.setEndereco(jtEndereco.getText());
             pac.setDataNascimento(sdf.parse(jtDataNasc.getText()));
