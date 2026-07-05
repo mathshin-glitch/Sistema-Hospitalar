@@ -74,8 +74,20 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
         jlEndereco.setBounds(40, 140, 60, 30);
         jLayeredPane1.add(jtNome);
         jtNome.setBounds(140, 20, 210, 30);
+
+        jtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtCpfActionPerformed(evt);
+            }
+        });
         jLayeredPane1.add(jtCpf);
         jtCpf.setBounds(140, 60, 110, 30);
+
+        jtEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtEnderecoActionPerformed(evt);
+            }
+        });
         jLayeredPane1.add(jtEndereco);
         jtEndereco.setBounds(140, 140, 210, 30);
 
@@ -99,7 +111,7 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
         jLayeredPane1.add(jlTelefone);
         jlTelefone.setBounds(40, 180, 50, 30);
 
-        jlEmail1.setText("E-mal");
+        jlEmail1.setText("E-mail");
         jLayeredPane1.add(jlEmail1);
         jlEmail1.setBounds(40, 220, 90, 30);
         jLayeredPane1.add(jtEmail1);
@@ -161,6 +173,14 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtCpfActionPerformed
+
+    private void jtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtEnderecoActionPerformed
+
     private void cadastrar() {
         try {
 
@@ -169,12 +189,15 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
             Paciente pac = new Paciente();
 
             // Atribuindo valores aos atributos do Paciente com base nos campos preenchidos pelo usuário na tela
+            
             pac.setNome(jtNome.getText());
             pac.setEndereco(jtEndereco.getText());
             pac.setDataNascimento(sdf.parse(jtDataNasc.getText()));
             pac.setTelefone(jtTelefone.getText());
             pac.setCpf(jtCpf.getText());
             pac.setRg(jtRG.getText());
+            
+            
 
             // Verificando se um convênio foi selecionado no JComboBox
             if (!(jcConvenio.getSelectedIndex() == 0)) {
@@ -193,7 +216,8 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
 
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "Selecione um produto");
+                        "Selecione um convênio");
+                        return;
             } // fecha else
 
            // Criando objeto PacienteDAO para cadastrar o paciente no banco de dados
@@ -202,7 +226,7 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
 
             // Mensagem de sucesso
             JOptionPane.showMessageDialog(this, "Paciente cadastrado com sucesso!");
-
+            limpar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "ERRO! " + e.getMessage());
@@ -213,8 +237,12 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
     //apaga valores dos campos
     private void limpar() {
         jtNome.setText("");
-        jtEndereco.setText("");
         jtCpf.setText("");
+        jtRG.setText("");
+        jtEndereco.setText("");
+        jtTelefone.setText("");
+        jtEmail1.setText("");
+        jtDataNasc.setText("");
     }// fecha método
 
     
@@ -255,7 +283,6 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
 
     private void jbCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {
         cadastrar();
-        limpar();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
