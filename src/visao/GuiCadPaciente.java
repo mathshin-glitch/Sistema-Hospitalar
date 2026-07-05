@@ -1,4 +1,3 @@
-
 package visao;
 
 import dao.ConvenioDAO;
@@ -189,19 +188,28 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
             Paciente pac = new Paciente();
 
             // Atribuindo valores aos atributos do Paciente com base nos campos preenchidos pelo usuário na tela
-            
             //Adicionando as Válidações
-            if(jtNome.getText().trim().isEmpty() || jtEndereco.getText().trim().isEmpty() || jtDataNasc.getText().trim().isEmpty() || jtTelefone.getText().trim().isEmpty() || jtCpf.getText().trim().isEmpty() || jtRG.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(null,"Todos os Campos precisam ser preenchidos");
+            if (jtNome.getText().trim().isEmpty() || jtEndereco.getText().trim().isEmpty() || jtDataNasc.getText().trim().isEmpty() || jtTelefone.getText().trim().isEmpty() || jtCpf.getText().trim().isEmpty() || jtRG.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos os Campos precisam ser preenchidos");
                 return;
             }
+
+            //Adicionando validação do campo CPF
+            String cpf = jtCpf.getText().replace(".", "").replace("-", "").trim();
+
+            if (!cpf.matches("\\d{11}")) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "CPF deve conter 11 dígitos");
+                return;
+            }
+
             pac.setNome(jtNome.getText());
             pac.setEndereco(jtEndereco.getText());
             pac.setDataNascimento(sdf.parse(jtDataNasc.getText()));
             pac.setTelefone(jtTelefone.getText());
-            pac.setCpf(jtCpf.getText());
+            pac.setCpf(cpf);
             pac.setRg(jtRG.getText());
-            
 
             // Verificando se um convênio foi selecionado no JComboBox
             if (!(jcConvenio.getSelectedIndex() == 0)) {
@@ -221,10 +229,10 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(this,
                         "Selecione um convênio");
-                        return;
+                return;
             } // fecha else
 
-           // Criando objeto PacienteDAO para cadastrar o paciente no banco de dados
+            // Criando objeto PacienteDAO para cadastrar o paciente no banco de dados
             PacienteDAO pacDAO = new PacienteDAO();
             pacDAO.cadastrarPaciente(pac);
 
@@ -249,7 +257,6 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
         jtDataNasc.setText("");
     }// fecha método
 
-    
     // metodo para preencher o combo box com os produtos cadastrados no banco de dados
     private void preencherCombo() {
         try {
