@@ -190,13 +190,17 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
 
             // Atribuindo valores aos atributos do Paciente com base nos campos preenchidos pelo usuário na tela
             
+            //Adicionando as Válidações
+            if(jtNome.getText().trim().isEmpty() || jtEndereco.getText().trim().isEmpty() || jtDataNasc.getText().trim().isEmpty() || jtTelefone.getText().trim().isEmpty() || jtCpf.getText().trim().isEmpty() || jtRG.getText().trim().isEmpty()){
+                JOptionPane.showMessageDialog(null,"Todos os Campos precisam ser preenchidos");
+                return;
+            }
             pac.setNome(jtNome.getText());
             pac.setEndereco(jtEndereco.getText());
             pac.setDataNascimento(sdf.parse(jtDataNasc.getText()));
             pac.setTelefone(jtTelefone.getText());
             pac.setCpf(jtCpf.getText());
             pac.setRg(jtRG.getText());
-            
             
 
             // Verificando se um convênio foi selecionado no JComboBox
