@@ -204,6 +204,14 @@ public class GuiCadPaciente extends javax.swing.JInternalFrame {
                 return;
             }
 
+            //Adicionando validação do campo Telefone
+            String telefone = jtTelefone.getText();
+            if (!telefone.matches("\\(\\d{2}\\)\\d{4}-\\d{4}")) {
+                JOptionPane.showMessageDialog(null,
+                        "Telefone inválido! Use o formato (xx)xxxx-xxxx");
+                return;
+            }
+
             pac.setNome(jtNome.getText());
             pac.setEndereco(jtEndereco.getText());
             pac.setDataNascimento(sdf.parse(jtDataNasc.getText()));
